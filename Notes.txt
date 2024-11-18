@@ -1,0 +1,100 @@
+Steps to Dockerize the Flask App:
+1. Create a Dockerfile
+Inside your project directory (ecom_express/), create a file named Dockerfile:
+
+touch Dockerfile
+Add the following content to your Dockerfile:
+
+Dockerfile
+
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install Flask (and any other required Python packages)
+RUN pip install --no-cache-dir flask
+
+# Expose the port that the Flask app runs on
+EXPOSE 5000
+
+# Define environment variable for Flask to run in production mode
+ENV FLASK_ENV=production
+
+# Run the app when the container launches
+CMD ["python", "app.py"]
+
+
+
+
+3. Build and Run the Docker Image
+To build and run your Dockerized Flask app, follow these steps:
+
+Build the Docker Image: Run this command inside your project directory:
+
+
+docker build -t flask-ecom-express .
+
+This will build the Docker image and tag it as flask-ecom-express.
+
+Run the Docker Container: After the image is built, you can run the container using:
+
+
+docker run -d -p 5001:5001 flask-ecom-express
+
+This command will:
+
+
+
+http://localhost:5000
+
+
+
+o push an image to your Docker Hub repository, follow these steps:
+
+1. Login to Docker Hub
+Log in to your Docker Hub account from your terminal using the following command:
+
+
+docker login
+
+2. Tag the Docker Image
+
+docker tag <local_image_name> <dockerhub_username>/<repository_name>:<tag>
+
+docker tag Ecom_app divyavundavalli/Ecom_app:latest
+
+ docker tag flask-ecom-express-new anilkumarsahu2623/flask-ecom-express-new:latest
+
+
+3. Push the Image
+Once the image is tagged, push it to Docker Hub using the following command:
+
+
+docker push <dockerhub_username>/<repository_name>:<tag>
+docker push divyavundavalli/Ecom_app:latest
+
+
+
+4. Verify the Image on Docker Hub
+Go to your Docker Hub account, navigate to the repository, and check if the image has been uploaded successfully.
+
+
+
+
+Jenkins:
+docker run -d --name jenkins \
+  -p 8080:8080 -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  jenkins/jenkins:lts
+
+http://localhost:8080
+
+
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+
+
